@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governing Immersive Tech | University of Sydney</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0f1419;
+            --deep-blue: #1a2332;
+            --accent-blue: #2e5266;
+            --gold: #d4af37;
+            --cream: #faf8f3;
+            --light-grey: #e8e4dc;
+            --mid-grey: #8a8a8a;
+            --primary: 'Manrope', sans-serif;
+            --accent: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--primary);
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header - Immersive VR Landing */
+        header {
+            background: #000;
+            color: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated VR Grid Background */
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(90deg, rgba(46, 82, 102, 0.3) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(46, 82, 102, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+            perspective: 1000px;
+            transform: rotateX(60deg) translateZ(-200px);
+            animation: gridMove 20s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes gridMove {
+            0% { transform: rotateX(60deg) translateZ(-200px) translateY(0); }
+            100% { transform: rotateX(60deg) translateZ(-200px) translateY(50px); }
+        }
+
+        /* Glowing orbs floating in space */
+        header::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            top: 20%;
+            left: 10%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .university {
+            font-family: var(--accent);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            opacity: 0;
+            animation: glitchIn 1s ease forwards 0.3s;
+        }
+
+        h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: glitchIn 1s ease forwards 0.6s;
+            text-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.5),
+                0 0 40px rgba(46, 82, 102, 0.3);
+            position: relative;
+            font-family: var(--accent);
+        }
+
+        /* VR-style glitch effect on title */
+        h1::before,
+        h1::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        h1::before {
+            color: #0ff;
+            animation: glitch1 2.5s infinite;
+        }
+
+        h1::after {
+            color: #ff6600;
+            animation: glitch2 2.5s infinite;
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { transform: translate(0); opacity: 0; }
+            20% { transform: translate(-2px, 2px); opacity: 0.7; }
+            21% { transform: translate(-2px, 2px); opacity: 0; }
+        }
+
+        @keyframes glitch2 {
+            0%, 100% { transform: translate(0); opacity: 0; }
+            40% { transform: translate(2px, -2px); opacity: 0.7; }
+            41% { transform: translate(2px, -2px); opacity: 0; }
+        }
+
+        @keyframes glitchIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-family: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--light-grey);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            opacity: 0;
+            animation: glitchIn 1s ease forwards 0.9s;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: glitchIn 1s ease forwards 1.2s, bounce 2s ease-in-out 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            margin: 0 auto 0.5rem;
+        }
+
+        .scroll-indicator span {
+            font-family: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* VR Portal rings */
+        .vr-rings {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .vr-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            animation: ringPulse 4s ease-out infinite;
+        }
+
+        .vr-ring:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            animation-delay: 0s;
+        }
+
+        .vr-ring:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            animation-delay: 1s;
+        }
+
+        .vr-ring:nth-child(3) {
+            width: 700px;
+            height: 700px;
+            animation-delay: 2s;
+        }
+
+        @keyframes ringPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--deep-blue);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            font-family: var(--accent);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .project-overview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .overview-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .overview-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .key-focus {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 2rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        .key-focus h3 {
+            font-family: var(--accent);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .key-focus p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Research Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-top: 3px solid var(--accent-blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+        }
+
+        .team-member h3 a {
+            color: var(--navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .team-member h3 a:hover {
+            color: var(--accent-blue);
+        }
+
+        .team-member .title {
+            font-family: var(--accent);
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Research Themes */
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .theme-card {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--accent-blue) 100%);
+            padding: 2.5rem;
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .theme-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Call to Action */
+        .cta {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 3rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Publications Section */
+        .publications-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+            max-width: 900px;
+        }
+
+        .publication-item {
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-left: 3px solid var(--accent-blue);
+            transition: all 0.3s ease;
+        }
+
+        .publication-item:hover {
+            border-left-color: var(--gold);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .publication-item a {
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .publication-item a:hover {
+            color: var(--accent-blue);
+        }
+
+        .cta h2 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .cta h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cta p {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            font-family: var(--accent);
+            background: var(--navy);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--navy);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--navy);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--light-grey);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-family: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--cream);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .project-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            main {
+                padding: 3rem 1.5rem;
+            }
+
+            header::before {
+                background-size: 30px 30px;
+            }
+
+            .vr-ring:nth-child(1) { width: 200px; height: 200px; }
+            .vr-ring:nth-child(2) { width: 350px; height: 350px; }
+            .vr-ring:nth-child(3) { width: 500px; height: 500px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="vr-rings">
+            <div class="vr-ring"></div>
+            <div class="vr-ring"></div>
+            <div class="vr-ring"></div>
+        </div>
+        <div class="header-content">
+            <div class="university">The University of Sydney</div>
+            <h1 data-text="Governing Immersive Tech Project">Governing Immersive Tech Project</h1>
+            <p class="subtitle">Supporting proactive public-interest governance of emerging technologies</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about">
+            <h2>About the Project</h2>
+            <div class="project-overview">
+                <div class="overview-text">
+                    <p>Technology companies are spending billions of dollars to develop immersive systems—metaverse platforms, spatial computing, extended reality—often integrated with AI, robotics and other emerging technologies. They're building the infrastructure for a new automated, three-dimensional digital era.</p>
+                    
+                    <p>But the visions shaping these technologies—and the assumptions about power, ethics, and society baked into them—haven't been properly scrutinized. Critical questions about harm, accountability, and inclusion are at risk of being left until after problems emerge.</p>
+                    
+                    <p>We're an interdisciplinary research team from the University of Sydney, with funding from the Australian Research Council, working on the development of frameworks for public-interest governance of immersive and other emerging technologies. Our mission is to support proactive governance, not damage control.</p>
+                </div>
+                
+                <div class="key-focus">
+                    <h3>Key Focus</h3>
+                    <p>Proactive harm prevention through critical examination of corporate visions, embedded assumptions, and governance structures before immersive technologies become ubiquitous.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <h2>Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3><a href="https://www.sydney.edu.au/arts/about/our-people/academic-staff/j-gray.html" target="_blank">Dr Joanne E. Gray</a></h3>
+                    <p class="title">Chief Investigator</p>
+                </div>
+                
+                <div class="team-member">
+                    <h3><a href="https://www.sydney.edu.au/arts/about/our-people/academic-staff/benjamin-egliston.html" target="_blank">Dr Benjamin Egliston</a></h3>
+                    <p class="title">Chief Investigator</p>
+                </div>
+                
+                <div class="team-member">
+                    <h3><a href="https://www.sydney.edu.au/architecture/about/our-people/academic-staff/marcus-carter.html" target="_blank">Professor Marcus Carter</a></h3>
+                    <p class="title">Chief Investigator</p>
+                </div>
+                
+                <div class="team-member">
+                    <h3>Dr Milica Stilinovic</h3>
+                    <p class="title">Postdoctoral Research Associate</p>
+                </div>
+                
+                <div class="team-member">
+                    <h3>Wenqi Tan</h3>
+                    <p class="title">PhD Candidate</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="research">
+            <h2>Research</h2>
+            <div class="themes-grid">
+                <div class="theme-card">
+                    <h3>Corporate Visions & Power</h3>
+                    <p>Examining how major technology firms shape the development and governance of immersive technologies, and analyzing the assumptions embedded in their visions for the future.</p>
+                </div>
+                
+                <div class="theme-card">
+                    <h3>Harm Prevention</h3>
+                    <p>Identifying potential harms before they materialize, including issues of privacy, surveillance, discrimination, and psychological wellbeing in immersive environments.</p>
+                </div>
+                
+                <div class="theme-card">
+                    <h3>Accountability & Inclusion</h3>
+                    <p>Developing frameworks that ensure diverse perspectives are included in governance decisions and that accountability mechanisms are built into immersive systems from the ground up.</p>
+                </div>
+                
+                <div class="theme-card">
+                    <h3>Regulatory Frameworks</h3>
+                    <p>Creating robust, forward-looking policy recommendations that enable proactive governance rather than reactive responses to emerging problems.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Selected Research Publications</h2>
+            <div class="publications-list">
+                <div class="publication-item">
+                    <a href="https://www.tandfonline.com/doi/full/10.1080/1369118X.2025.2535426" target="_blank">Disability inclusion in extended reality (XR) research: a critical scoping review (Information, Communication & Society, 2025)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781003166016-19/virtual-reality-mobilities-marcus-carter-ben-egliston" target="_blank">Virtual Reality and Mobilities (Taylor & Francis, 2025)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://www.emerald.com/books/edited-volume/16970/chapter-abstract/93963321/Virtual-Reality-and-the-Hardcore-Gamer?redirectedFrom=fulltext" target="_blank">Virtual Reality and the Hardcore Gamer (Emerald, 2025)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://mitpress.mit.edu/9780262549165/fantasies-of-virtual-reality/" target="_blank">Fantasies of Virtual Reality: Untangling Fiction, Fact, and Threat (MIT Press, 2024)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://link.springer.com/book/10.1007/978-3-031-61831-4" target="_blank">Governing Social Virtual Reality: Preparing for the Content, Conduct and Design Challenges of Immersive Social Media (Springer, 2024)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://onlinelibrary.wiley.com/doi/10.1002/poi3.418" target="_blank">The Chinese metaverse: An analysis of China's policy agenda for extended reality (XR) (Policy & Internet, 2024)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://www.tandfonline.com/doi/full/10.1080/1369118X.2024.2423339" target="_blank">Value and virtue in the extended reality (XR) industry (Information, Communication & Society, 2024)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/14614448231226172" target="_blank">Who will govern the metaverse? Examining governance initiatives for extended reality (XR) technologies (New Media & Society, 2024)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/20539517211063689" target="_blank">'The interface of the future': Mixed reality, intimate data and imagined temporalities (Big Data & Society, 2022)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/14614448221119785" target="_blank">'The metaverse and how we'll build it': The political economy of Meta's Reality Labs (New Media & Society, 2022)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/14614448211012794" target="_blank">What are the risks of Virtual Reality data? Learning Analytics, Algorithmic Bias and a Fantasy of Perfect Data (New Media & Society, 2021)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://policyreview.info/articles/analysis/critical-questions-facebooks-virtual-reality-data-power-and-metaverse" target="_blank">Critical questions for Facebook's virtual reality: Data, power and the metaverse (Internet Policy Review, 2021)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/1329878X211041670" target="_blank">Examining visions of surveillance in Oculus' data and privacy policies, 2014–2020 (Media International Australia, 2021)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/13548565211072342" target="_blank">The material politics of mobile virtual reality: Oculus, data, and the technics of sensemaking (Convergence, 2021)</a>
+                </div>
+                
+                <div class="publication-item">
+                    <a href="https://journals.sagepub.com/doi/10.1177/1461444820960411" target="_blank">Oculus imaginaries: The promises and perils of Facebook's virtual reality (New Media & Society, 2020)</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="cta">
+            <h2>Get Involved</h2>
+            <p>We welcome collaboration with researchers, policymakers, and practitioners interested in the responsible development and governance of immersive technologies.</p>
+            <a href="mailto:milica.stilinovic@sydney.edu.au" class="cta-button">Contact Us</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Governing Immersive Tech Project, The University of Sydney</p>
+        <p>Australian Research Council Discovery Project 250100343</p>
+        <p>Faculty of Arts and Social Sciences | <a href="https://www.sydney.edu.au">sydney.edu.au</a></p>
+    </footer>
+</body>
+</html>
