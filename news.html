@@ -168,6 +168,26 @@
             text-align: center;
             font-size: 0.85rem;
         }
+        details summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        details summary h2 {
+            display: inline;
+        }
+        
+        details[open] summary h2 {
+            color: var(--accent-blue);
+        }
+        
+        .post-content {
+            margin-top: 1rem;
+        }
     </style>
 </head>
 
@@ -194,27 +214,27 @@
         <!-- BLOG POST TEMPLATE -->
         <article class="post">
             <div class="post-date">15 February 2026</div>
-            <h2>ARC Discovery Project Officially Commences</h2>
-            <p>
-                The Governing Immersive Tech Project has officially commenced under the Australian Research Council Discovery Program. 
-                Over the next three years, our interdisciplinary team will develop frameworks for proactive governance of immersive technologies.
-            </p>
-            <p>
-                The project will focus on harm prevention, corporate power, and regulatory preparedness in emerging extended reality systems.
-            </p>
-            <a href="#" class="read-more">Read More →</a>
+        
+            <details>
+                <summary>
+                    <h2>ARC Discovery Project Officially Commences</h2>
+                </summary>
+        
+                <div class="post-content">
+                    <p>
+                        The Governing Immersive Tech Project has officially commenced under the Australian Research Council Discovery Program.
+                    </p>
+        
+                    <p>
+                        Over the next three years, our interdisciplinary team will develop frameworks for proactive governance of immersive technologies, focusing on harm prevention, corporate power, and regulatory preparedness.
+                    </p>
+        
+                    <p>
+                        Further updates and research outputs will be shared throughout 2026.
+                    </p>
+                </div>
+            </details>
         </article>
-
-        <article class="post">
-            <div class="post-date">10 January 2026</div>
-            <h2>New Publication on XR Governance Released</h2>
-            <p>
-                A new article examining governance initiatives for extended reality technologies has been published in 
-                <em>New Media & Society</em>. The paper analyses competing governance models emerging across industry and policy domains.
-            </p>
-            <a href="#" class="read-more">Read More →</a>
-        </article>
-
         <!-- Duplicate article blocks above for new posts -->
 
     </main>
