@@ -188,6 +188,44 @@
         .post-content {
             margin-top: 1rem;
         }
+        .post-preview {
+    margin-bottom: 1rem;
+}
+
+details {
+    margin-top: 0.5rem;
+}
+
+details summary {
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary:hover {
+    color: var(--gold);
+}
+
+details summary::after {
+    content: " +";
+    font-weight: 600;
+}
+
+details[open] summary::after {
+    content: " −";
+}
+
+.post-content {
+    margin-top: 1rem;
+}
     </style>
 </head>
 
@@ -214,17 +252,17 @@
         <!-- BLOG POST TEMPLATE -->
         <article class="post">
             <div class="post-date">15 February 2026</div>
+            <!-- Always-visible preview -->
+            <h2>ARC Discovery Project Officially Commences</h2>
+            <p class="post-preview">
+                The Governing Immersive Tech Project has officially commenced under the Australian Research Council Discovery Program.
+            </p>
         
+            <!-- Expandable section -->
             <details>
-                <summary>
-                    <h2>ARC Discovery Project Officially Commences</h2>
-                </summary>
+                <summary>Read more</summary>
         
                 <div class="post-content">
-                    <p>
-                        The Governing Immersive Tech Project has officially commenced under the Australian Research Council Discovery Program.
-                    </p>
-        
                     <p>
                         Over the next three years, our interdisciplinary team will develop frameworks for proactive governance of immersive technologies, focusing on harm prevention, corporate power, and regulatory preparedness.
                     </p>
@@ -235,6 +273,7 @@
                 </div>
             </details>
         </article>
+
         <!-- Duplicate article blocks above for new posts -->
 
     </main>
