@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GIT speaks at AWE Asia 2026 | Governing Immersive Tech Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #0f1419;
+            --deep-blue: #1a2332;
+            --accent-blue: #2e5266;
+            --gold: #d4af37;
+            --gold-light: #e8c968;
+            --cream: #faf8f3;
+            --light-grey: #e8e4dc;
+            --mid-grey: #6b6b6b;
+            --neutral-dark: #3a3633;
+            --text-primary: #2d2a26;
+            --text-secondary: #6b6560;
+            --white: #ffffff;
+            --primary: 'Manrope', sans-serif;
+            --accent: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--primary);
+            background: linear-gradient(135deg, var(--cream) 0%, #f0ebe3 100%);
+            color: var(--navy);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--navy);
+            color: var(--cream);
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Focus Visible Styles */
+        *:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--deep-blue);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-family: var(--accent);
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold-light);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--gold);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* ARTICLE HEADER */
+        .article-header {
+            max-width: 900px;
+            margin: 3rem auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .article-date {
+            font-family: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--mid-grey);
+            padding: 6px 14px;
+            background: var(--white);
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .article-category {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-family: var(--accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .article-category.news {
+            background: #a17d1a;
+            color: var(--white);
+        }
+
+        .article-category.research {
+            background: var(--accent-blue);
+            color: var(--white);
+        }
+
+        .article-category.event {
+            background: #2d6b2d;
+            color: var(--white);
+        }
+
+        .article-header h1 {
+            font-family: var(--accent);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+            color: var(--navy);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .article-excerpt {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* FEATURED IMAGE */
+        .featured-image {
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        .featured-image figcaption {
+            font-family: var(--accent);
+            font-size: 0.9rem;
+            color: var(--mid-grey);
+            margin-top: 1rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* ARTICLE CONTENT */
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .content-wrapper {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .article-content h2 {
+            font-family: var(--accent);
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--navy);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .article-content h3 {
+            font-family: var(--accent);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .article-content blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, #f5f1ea 100%);
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .article-content a {
+            color: var(--accent-blue);
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .article-content a:hover {
+            color: var(--gold);
+        }
+
+        /* BACK BUTTON */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--navy);
+            color: var(--white) !important;
+            text-decoration: none !important;
+            border-radius: 50px;
+            font-family: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 3rem;
+        }
+
+        .back-button:hover {
+            background: var(--deep-blue);
+            color: var(--gold) !important;
+            box-shadow: 0 4px 12px rgba(15, 20, 25, 0.3);
+        }
+
+        .back-button::before {
+            content: '←';
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover::before {
+            transform: translateX(-4px);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy);
+            color: var(--light-grey);
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+
+        footer::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin-bottom: 3rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .article-header {
+                padding: 0 1.5rem;
+                margin: 2rem auto 3rem;
+            }
+
+            .article-header h1 {
+                font-size: 2rem;
+            }
+
+            .article-excerpt {
+                font-size: 1.1rem;
+            }
+
+            .featured-image {
+                padding: 0 1.5rem;
+            }
+
+            .article-content {
+                padding: 0 1.5rem 3rem;
+            }
+
+            .content-wrapper {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* REDUCED MOTION */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#team">Team</a></li>
+            <li><a href="../index.html#research">Research</a></li>
+            <li><a href="../index.html#publications">Publications</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+            <li><a href="../news.html" class="active">News</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <!-- Article Header -->
+        <header class="article-header">
+            <div class="article-meta">
+                <time class="article-date" datetime="2026-02-16">16 February 2026</time>
+                <span class="article-category news">News</span>
+            </div>
+            <h1>GIT speaks at AWE Asia 2026</h1>
+            <p class="article-excerpt">
+                From February 2–4 2026, the Governing Immersive Tech project team joined leading XR companies, investors, and other international stakeholders at AWE Asia 2026 in Singapore to speak about proactive XR governance.
+            </p>
+        </header>
+
+        <!-- Featured Image -->
+        <figure class="featured-image">
+            <img src="../images/aweasia2026.JPG" 
+                 alt="Governing Immersive Tech Project presentation at AWE Asia 2026 conference showing speaker on stage with presentation slides"
+                 width="1200"
+                 height="600"
+                 loading="eager">
+            <figcaption>Dr. [Name] presents GIT research findings at AWE Asia 2026 in Singapore</figcaption>
+        </figure>
+
+        <!-- Article Content -->
+        <article class="article-content">
+            <div class="content-wrapper">
+                <p>
+                    Placeholder.
+                </p>
+
+                <h2>Placeholder.</h2>
+                
+                <p>
+                    <a href="https://youtu.be/a3uFsLY27iI?si=7QpjnwayZcsKwhhZ">Watch a video of our full panel session here.</a>
+                </p>
+
+                <a href="../news.html" class="back-button">Back to News</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Governing Immersive Tech Project | The University of Sydney</p>
+    </footer>
+
+</body>
+</html>
