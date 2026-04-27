@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Reports | Governing Immersive Tech Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #0f1419;
+            --deep-blue: #1a2332;
+            --accent-blue: #2e5266;
+            --gold: #d4af37;
+            --cream: #faf8f3;
+            --light-grey: #e8e4dc;
+            --mid-grey: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0ebe3 100%);
+            color: var(--navy);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--navy);
+            color: var(--cream);
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 1000;
+            border-radius: 0 0 4px 0;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        *:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Decorative background elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -15%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(46, 82, 102, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 30px) rotate(5deg); }
+            50% { transform: translate(-15px, -20px) rotate(-3deg); }
+            75% { transform: translate(30px, -25px) rotate(4deg); }
+        }
+
+        /* NAV */
+        nav {
+            background: var(--deep-blue);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #e8c968;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--gold);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* HEADER */
+        .page-header {
+            background: #000000;
+            color: var(--cream);
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .page-header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CATEGORY TABS */
+        .category-tabs-section {
+            position: relative;
+            z-index: 1;
+            background: var(--deep-blue);
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .category-tabs {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+        }
+
+        .category-tab {
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .category-tab:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 82, 102, 0.3);
+        }
+
+        .category-tab.active {
+            background: var(--gold);
+            color: var(--navy);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+
+        /* MAIN */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* REPORTS GRID */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .reports-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .reports-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* REPORT ARTICLE CARD */
+        .report {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid transparent;
+        }
+
+        .report:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+            border-color: var(--light-grey);
+        }
+
+        /* Left accent stripe */
+        .report::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 3px;
+            background: linear-gradient(180deg, var(--gold), var(--accent-blue));
+            border-radius: 0 2px 2px 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .report:hover::before {
+            opacity: 1;
+        }
+
+        /* DATE / TYPE ROW */
+        .report-date {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--mid-grey);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--cream);
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* TYPE BADGES */
+        .report-type {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .report-type.policy-brief {
+            background: #6b3a8c;
+            color: #ffffff;
+        }
+
+        .report-type.report {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .report-type.submission {
+            background: #a17d1a;
+            color: #ffffff;
+        }
+
+        .report-type.white-paper {
+            background: #2d6b2d;
+            color: #ffffff;
+        }
+
+        /* TITLE */
+        .report h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--navy);
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            padding: 0 12px;
+        }
+
+        .report h2 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .report h2 a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* AUTHORS */
+        .report-authors {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            padding: 0 12px;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.01em;
+        }
+
+        /* ABSTRACT / DESCRIPTION */
+        .report-abstract {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: var(--mid-grey);
+            flex-grow: 1;
+            padding: 0 12px;
+            line-height: 1.7;
+        }
+
+        /* PDF EMBED */
+        .report-cover {
+            margin: 1rem 0 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            padding: 0 12px;
+        }
+
+        .report-cover iframe {
+            width: 100%;
+            height: 280px;
+            border: none;
+            border-radius: 8px;
+            display: block;
+            background: var(--light-grey);
+        }
+
+        /* ABSTRACT TRUNCATION */
+        .report-abstract {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--mid-grey);
+            padding: 0 12px;
+            line-height: 1.7;
+            /* truncation */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .report-abstract.expanded {
+            display: block;
+            overflow: visible;
+            -webkit-line-clamp: unset;
+            margin-bottom: 1.5rem;
+        }
+
+        .abstract-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 12px 12px;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        .abstract-toggle:hover {
+            color: var(--navy);
+        }
+
+        /* TAGS ROW */
+        .report-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 12px;
+            margin-bottom: 1.25rem;
+        }
+
+        .report-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--cream);
+            border: 1px solid var(--light-grey);
+            border-radius: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--mid-grey);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ACTION BUTTONS */
+        .report-actions {
+            display: flex;
+            gap: 12px;
+            padding: 0 12px;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .btn-pdf {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--navy);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+            justify-content: center;
+            min-width: 130px;
+        }
+
+        .btn-pdf:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(15, 20, 25, 0.3);
+        }
+
+        .btn-pdf svg {
+            flex-shrink: 0;
+        }
+
+        .btn-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: transparent;
+            color: var(--accent-blue);
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid var(--accent-blue);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+            justify-content: center;
+            min-width: 130px;
+        }
+
+        .btn-link:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 82, 102, 0.3);
+        }
+
+        .btn-link svg {
+            flex-shrink: 0;
+        }
+
+        /* FILTERING */
+        .report.hidden {
+            display: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--navy);
+            color: var(--light-grey);
+            padding: 3rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav ul { gap: 1.5rem; }
+            nav a { font-size: 0.8rem; }
+            .page-header { padding: 4rem 1.5rem 3rem; }
+            .page-header h1 { font-size: 2rem; }
+            .page-header p { font-size: 1rem; }
+            .category-tabs { padding: 0 1rem; }
+            .category-tab { padding: 10px 20px; font-size: 0.8rem; }
+            main { padding: 3rem 1.5rem; }
+            .reports-grid { gap: 24px; }
+            .report { padding: 1.5rem; }
+            .report h2 { font-size: 1.3rem; }
+            .report-actions { flex-direction: column; }
+            .btn-pdf, .btn-link { min-width: unset; }
+        }
+
+        /* REDUCED MOTION */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            body::before, body::after { animation: none !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav>
+        <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#team">Team</a></li>
+            <li><a href="index.html#research">Research</a></li>
+            <li><a href="index.html#publications">Publications</a></li>
+            <li><a href="reports.html" class="active">Reports</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1>Reports</h1>
+        <p>Reports and briefs from the Governing Immersive Tech Project</p>
+    </header>
+
+    <!-- Category Filter Tabs -->
+    <section class="category-tabs-section" aria-label="Filter reports by type">
+        <div class="category-tabs" role="tablist">
+            <button class="category-tab active" data-category="all" role="tab" aria-selected="true" aria-controls="reports-grid">All</button>
+            <button class="category-tab" data-category="report" role="tab" aria-selected="false" aria-controls="reports-grid">Full Reports</button>
+            <button class="category-tab" data-category="brief" role="tab" aria-selected="false" aria-controls="reports-grid">Briefing Notes</button>
+        </div>
+    </section>
+
+    <main id="main-content">
+        <div class="reports-grid" id="reports-grid" role="tabpanel" aria-live="polite" aria-label="Reports">
+
+            <!-- REPORT 1 -->
+            <article class="report" data-category="report">
+                <div class="report-date">
+                    25 March 2026
+                    <span class="report-type report">Full Reports</span>
+                </div>
+                <h2><a href="reports/roblox-monetisation.pdf" target="_blank" rel="noopener noreferrer">Misleading and Deceptive Monetisation in Roblox: Evidence of False Pricing, Manipulative Design, and Consumer Harm in a Children's Digital Platform</a></h2>
+                <p class="report-authors">Marcus Carter, Sanika Vekhande, Alisa-Jean Fifita</p>
+                <div class="report-cover">
+                    <iframe src="reports/roblox-monetisation.pdf" title="PDF preview: Misleading and Deceptive Monetisation in Roblox" aria-label="Embedded PDF preview"></iframe>
+                </div>
+                <p class="report-abstract">
+                    Roblox is one of the world's largest digital platforms for children, generating most of its revenue through microtransactions purchased with the virtual currency Robux. This report examines how monetisation is designed and experienced in popular Roblox games, focusing on misleading, deceptive, and manipulative practices that may cause consumer harm. Based on qualitative gameplay analysis of 15 top‑earning Roblox games conducted between October 2025 and February 2026, the study documents fourteen misleading, deceptive or unfair monetisation practices. The report argues that these practices raise serious consumer protection concerns, particularly given Roblox's predominantly child user base and the platform's active role in shaping and profiting from these monetisation systems.
+                </p>
+                <button class="abstract-toggle" aria-expanded="false">Read more ↓</button>
+                <div class="report-tags">
+                    <span class="report-tag">Roblox</span>
+                    <span class="report-tag">Child Safety</span>
+                    <span class="report-tag">Monetisation</span>
+                </div>
+                <div class="report-actions">
+                    <a href="reports/roblox-monetisation.pdf" class="btn-pdf" aria-label="Download PDF of Misleading and Deceptive Monetisation in Roblox" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download PDF
+                    </a>
+                    <a href="https://doi.org/10.25910/0gad-5g44" class="btn-link" aria-label="View full report page of Misleading and Deceptive Monetisation in Roblox" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        View Report
+                    </a>
+                </div>
+            </article>
+
+            <!-- REPORT 2 -->
+            <article class="report" data-category="report">
+                <div class="report-date">
+                    September 2024
+                    <span class="report-type report">Full Reports</span>
+                </div>
+                <h2><a href="reports/disability-metaverse.pdf" target="_blank" rel="noopener noreferrer">Disability in the Metaverse</a></h2>
+                <p class="report-authors">Marcus Carter, Ben Egliston, Kate Clark, Gerard Goggin, Victor Zhuang, Katie Ellis, Wayne Hawkins, Wenqi Tan</p>
+                <div class="report-cover">
+                    <iframe src="reports/disability-metaverse.pdf" title="PDF preview: Disability in the Metaverse" aria-label="Embedded PDF preview"></iframe>
+                </div>
+                <p class="report-abstract">
+                    This research investigates the accessibility challenges and opportunities for people with disabilities in Virtual Reality (VR) environments. Conducted from June 2023 to June 2024, the study involved 102 survey respondents and 21 in-depth interviews with VR users with disabilities, alongside 20 VR industry experts. Key findings highlight the ways current VR systems are designed around normative assumptions about bodies, often excluding those with physical, visual, neurological, and cognitive impairments. The research also notes the underrepresentation of complex care needs in existing accessibility research and the limited efforts to incorporate assistive devices in VR design. The report suggests that a more inclusive approach to VR development—one that integrates feedback from disabled users during the design process—would benefit not only disabled but also non-disabled users. The study concludes with six key recommendations for improving VR accessibility, including fostering direct communication with disabled users, providing flexible interaction options, and ensuring that VR hardware and software are designed with a wide spectrum of disabilities in mind.
+                </p>
+                    <button class="abstract-toggle" aria-expanded="false">Read more ↓</button>
+                <div class="report-tags">
+                    <span class="report-tag">Metaverse</span>
+                    <span class="report-tag">Virtual Reality</span>
+                    <span class="report-tag">Disability</span>
+                </div>
+                <div class="report-actions">
+                    <a href="reports/metaverse-disability.pdf" class="btn-pdf" aria-label="Download PDF of Disability in the Metaverse" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download PDF
+                    </a>
+                    <a href="https://doi.org/10.25910/cs3c-ep20" class="btn-link" aria-label="View full report page of Disability in the Metaverse" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        View Online
+                    </a>
+                </div>
+            </article>
+        
+        </div><!-- end reports-grid -->
+    </main>
+
+    <footer>
+        &copy; 2026 Governing Immersive Tech Project | The University of Sydney
+    </footer>
+
+    <script>
+        // Category filtering
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const reports = document.querySelectorAll('.report');
+        const reportsGrid = document.getElementById('reports-grid');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab and ARIA states
+                categoryTabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+
+                const selectedCategory = tab.getAttribute('data-category');
+
+                let visibleCount = 0;
+                reports.forEach(report => {
+                    const reportCategory = report.getAttribute('data-category');
+                    if (selectedCategory === 'all' || reportCategory === selectedCategory) {
+                        report.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        report.classList.add('hidden');
+                    }
+                });
+
+                const categoryName = selectedCategory === 'all' ? 'All' : tab.textContent.trim();
+                reportsGrid.setAttribute('aria-label', `${visibleCount} ${categoryName}`);
+
+                document.querySelector('main').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+
+        // Abstract expand/collapse
+        document.querySelectorAll('.abstract-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const abstract = btn.previousElementSibling;
+                const expanded = abstract.classList.toggle('expanded');
+                btn.setAttribute('aria-expanded', expanded);
+                btn.textContent = expanded ? 'Read less ↑' : 'Read more ↓';
+            });
+        });
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
