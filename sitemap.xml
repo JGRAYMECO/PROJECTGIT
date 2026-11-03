@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://projectgit.com.au/</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://projectgit.com.au/reports.html</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://projectgit.com.au/reports.html</loc><lastmod>2026-11-04</lastmod></url>
   <url><loc>https://projectgit.com.au/news.html</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://projectgit.com.au/news/abc-smartglasses-2026.html</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://projectgit.com.au/news/awe-asia-2026.html</loc><lastmod>2026-11-03</lastmod></url>
@@ -15,4 +15,8 @@
   <url><loc>https://projectgit.com.au/reports/roblox-crime-brief.pdf</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://projectgit.com.au/reports/roblox-monetisation.pdf</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://projectgit.com.au/reports/roblox-monetisation-brief.pdf</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://projectgit.com.au/reports/smart-glasses-nsw-rapid-analysis.pdf</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://projectgit.com.au/reports/smart-glasses-briefing-note.pdf</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://projectgit.com.au/reports/privacy-reform-submission-2026.pdf</loc><lastmod>2026-11-04</lastmod></url>
+  <url><loc>https://projectgit.com.au/reports/project-summary-year-1.pdf</loc><lastmod>2026-11-04</lastmod></url>
 </urlset>
